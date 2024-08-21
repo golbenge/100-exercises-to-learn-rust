@@ -59,7 +59,7 @@ impl std::ops::Add for SaturatingU16 {
 impl std::ops::Add<&SaturatingU16> for SaturatingU16 {
     type Output = Self;
     fn add(self, rhs: &Self) -> Self::Output {
-        Self::new(self.value + rhs.value)
+        Self::new(self.value.saturating_add(rhs.value))
     }
 }
 
