@@ -15,7 +15,18 @@ pub fn fibonacci(n: u32) -> u32 {
     //
     // Hint: use a `Vec` to memoize the results you have already calculated
     // so that you don't have to recalculate them several times.
-    todo!()
+    if n < 2 {
+        n
+    } else {
+        let mut a = 0;
+        let mut b = 1;
+        for _ in 2..=n {
+            let t = a + b;
+            a = b;
+            b = t;
+        }
+        b
+    }
 }
 
 #[cfg(test)]

@@ -14,15 +14,9 @@ pub enum Weekday {
     Sunday,
 }
 
-impl WeekTemperatures {
-    pub fn new() -> Self {
-        WeekTemperatures {
-            temperatures: [None, None, None, None, None, None, None],
-        }
-    }
-
-    fn idx(&self, day: &Weekday) -> usize {
-        match day {
+impl Weekday {
+    fn order(&self) -> usize {
+        match self {
             Weekday::Monday => 0,
             Weekday::Tuesday => 1,
             Weekday::Wednesday => 2,
@@ -32,12 +26,21 @@ impl WeekTemperatures {
             Weekday::Sunday => 6,
         }
     }
+}
+
+impl WeekTemperatures {
+    pub fn new() -> Self {
+        WeekTemperatures {
+            temperatures: [None, None, None, None, None, None, None],
+        }
+    }
+
     pub fn get_temperature(&self, day: Weekday) -> Option<i32> {
-        self.temperatures[self.idx(&day)]
+        self.temperatures[day.order()]
     }
 
     pub fn set_temperature(&mut self, day: Weekday, temperature: i32) {
-        self.temperatures[self.idx(&day)] = Some(temperature)
+        self.temperatures[day.order()] = Some(temperature)
     }
 }
 

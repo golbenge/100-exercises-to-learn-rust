@@ -44,8 +44,19 @@ impl TicketStore {
         }
     }
 
-    pub fn add_ticket(&mut self, ticket: Ticket) {
-        self.tickets.push(ticket);
+    pub fn add_ticket(&mut self, ticket_draft: TicketDraft) -> TicketId {
+        let ticket_id = TicketId(self.tickets.len() as u64 + 1);
+        self.tickets.push(Ticket {
+            id: ticket_id,
+            title: ticket_draft.title,
+            description: ticket_draft.description,
+            status: Status::ToDo,
+        });
+        ticket_id
+    }
+
+    pub fn get(&self, id: TicketId) -> Option<&Ticket> {
+        self.tickets.iter().find(|&t| t.id == id)
     }
 }
 
